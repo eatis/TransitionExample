@@ -8,7 +8,16 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate {
+extension UIView {
+    func dg_center(usePresentationLayerIfPossible: Bool) -> CGPoint {
+        if usePresentationLayerIfPossible, let presentationLayer = layer.presentationLayer() as? CALayer {
+            return presentationLayer.position
+        }
+        return center
+    }
+}
+
+class RootViewController: UIViewController {
 
     var pageViewController: UIPageViewController?
 
@@ -17,29 +26,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
-        self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
-        self.pageViewController!.delegate = self
-
-        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
-        let viewControllers = [startingViewController]
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
-
-        self.pageViewController!.dataSource = self.modelController
-
-        self.addChildViewController(self.pageViewController!)
-        self.view.addSubview(self.pageViewController!.view)
-
-        // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-        var pageViewRect = self.view.bounds
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
-        }
-        self.pageViewController!.view.frame = pageViewRect
-
-        self.pageViewController!.didMoveToParentViewController(self)
-
-        // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-        self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,47 +34,149 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    var modelController: ModelController {
-        // Return the model controller object, creating it if necessary.
-        // In more complex implementations, the model controller may be passed to the view controller.
-        if _modelController == nil {
-            _modelController = ModelController()
-        }
-        return _modelController!
+    
+    
+    // MARK: -
+    // MARK: Vars
+    
+    private let minimalHeight: CGFloat = 50.0
+    private let maxWaveHeight: CGFloat = 100.0
+    private let shapeLayer = CAShapeLayer()
+    
+    private let l3ControlPointView = UIView()
+    private let l2ControlPointView = UIView()
+    private let l1ControlPointView = UIView()
+    private let cControlPointView = UIView()
+    private let r1ControlPointView = UIView()
+    private let r2ControlPointView = UIView()
+    private let r3ControlPointView = UIView()
+    
+    private var displayLink: CADisplayLink!
+    
+    // MARK: -
+    
+    override func loadView() {
+        super.loadView()
+        
+        shapeLayer.frame = CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: minimalHeight)
+        // shapeLayer.backgroundColor = UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0).CGColor
+        shapeLayer.fillColor = UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0).CGColor
+        view.layer.addSublayer(shapeLayer)
+        shapeLayer.actions = ["position" : NSNull(), "bounds" : NSNull(), "path" : NSNull()]
+        
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "panGestureDidMove:"))
+        
+        l3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        l2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        l1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        cControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        r1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        r2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        r3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        
+        l3ControlPointView.backgroundColor = .redColor()
+        l2ControlPointView.backgroundColor = .redColor()
+        l1ControlPointView.backgroundColor = .redColor()
+        cControlPointView.backgroundColor = .redColor()
+        r1ControlPointView.backgroundColor = .redColor()
+        r2ControlPointView.backgroundColor = .redColor()
+        r3ControlPointView.backgroundColor = .redColor()
+        
+        view.addSubview(l3ControlPointView)
+        view.addSubview(l2ControlPointView)
+        view.addSubview(l1ControlPointView)
+        view.addSubview(cControlPointView)
+        view.addSubview(r1ControlPointView)
+        view.addSubview(r2ControlPointView)
+        view.addSubview(r3ControlPointView)
+        
+        layoutControlPoints(baseHeight: minimalHeight, waveHeight: 0.0, locationX: view.bounds.width / 2.0)
+        updateShapeLayer()
+        
+        displayLink = CADisplayLink(target: self, selector: Selector("updateShapeLayer"))
+        displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+        displayLink.paused = true
     }
-
-    var _modelController: ModelController? = nil
-
-    // MARK: - UIPageViewController delegate methods
-
-    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
-        if (orientation == .Portrait) || (orientation == .PortraitUpsideDown) || (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-            // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to true, so set it to false here.
-            let currentViewController = self.pageViewController!.viewControllers![0]
-            let viewControllers = [currentViewController]
-            self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
-
-            self.pageViewController!.doubleSided = false
-            return .Min
-        }
-
-        // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
-        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
-        var viewControllers: [UIViewController]
-
-        let indexOfCurrentViewController = self.modelController.indexOfViewController(currentViewController)
-        if (indexOfCurrentViewController == 0) || (indexOfCurrentViewController % 2 == 0) {
-            let nextViewController = self.modelController.pageViewController(self.pageViewController!, viewControllerAfterViewController: currentViewController)
-            viewControllers = [currentViewController, nextViewController!]
+    
+    // MARK: -
+    // MARK: Methods
+    
+    func panGestureDidMove(gesture: UIPanGestureRecognizer) {
+        if gesture.state == .Ended || gesture.state == .Failed || gesture.state == .Cancelled {
+            let centerY = minimalHeight
+            
+            animating = true
+            UIView.animateWithDuration(0.9, delay: 0.0, usingSpringWithDamping: 0.57, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
+                self.l3ControlPointView.center.y = centerY
+                self.l2ControlPointView.center.y = centerY
+                self.l1ControlPointView.center.y = centerY
+                self.cControlPointView.center.y = centerY
+                self.r1ControlPointView.center.y = centerY
+                self.r2ControlPointView.center.y = centerY
+                self.r3ControlPointView.center.y = centerY
+                }, completion: { _ in
+                    self.animating = false
+            })
         } else {
-            let previousViewController = self.modelController.pageViewController(self.pageViewController!, viewControllerBeforeViewController: currentViewController)
-            viewControllers = [previousViewController!, currentViewController]
+            let additionalHeight = max(gesture.translationInView(view).y, 0)
+            
+            let waveHeight = min(additionalHeight * 0.6, maxWaveHeight)
+            let baseHeight = minimalHeight + additionalHeight - waveHeight
+            
+            let locationX = gesture.locationInView(gesture.view).x
+            
+            layoutControlPoints(baseHeight: baseHeight, waveHeight: waveHeight, locationX: locationX)
+            updateShapeLayer()
         }
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
-
-        return .Mid
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {  
+        return .LightContent
+    }
+    
+    private func currentPath() -> CGPath {
+        let width = view.bounds.width
+        
+        let bezierPath = UIBezierPath()
+        
+        bezierPath.moveToPoint(CGPoint(x: 0.0, y: 0.0))
+        bezierPath.addLineToPoint(CGPoint(x: 0.0, y: l3ControlPointView.dg_center(animating).y))
+        bezierPath.addCurveToPoint(l1ControlPointView.dg_center(animating), controlPoint1: l3ControlPointView.dg_center(animating), controlPoint2: l2ControlPointView.dg_center(animating))
+        bezierPath.addCurveToPoint(r1ControlPointView.dg_center(animating), controlPoint1: cControlPointView.dg_center(animating), controlPoint2: r1ControlPointView.dg_center(animating))
+        bezierPath.addCurveToPoint(r3ControlPointView.dg_center(animating), controlPoint1: r1ControlPointView.dg_center(animating), controlPoint2: r2ControlPointView.dg_center(animating))
+        bezierPath.addLineToPoint(CGPoint(x: width, y: 0.0))
+        
+        bezierPath.closePath()
+        
+        return bezierPath.CGPath
+    }
+    
+    func updateShapeLayer() {
+        shapeLayer.path = currentPath()
     }
 
+    private func layoutControlPoints(baseHeight baseHeight: CGFloat, waveHeight: CGFloat, locationX: CGFloat) {
+        let width = view.bounds.width
+        
+        let minLeftX = min((locationX - width / 2.0) * 0.28, 0.0)
+        let maxRightX = max(width + (locationX - width / 2.0) * 0.28, width)
+        
+        let leftPartWidth = locationX - minLeftX
+        let rightPartWidth = maxRightX - locationX
+        
+        l3ControlPointView.center = CGPoint(x: minLeftX, y: baseHeight)
+        l2ControlPointView.center = CGPoint(x: minLeftX + leftPartWidth * 0.44, y: baseHeight)
+        l1ControlPointView.center = CGPoint(x: minLeftX + leftPartWidth * 0.71, y: baseHeight + waveHeight * 0.64)
+        cControlPointView.center = CGPoint(x: locationX , y: baseHeight + waveHeight * 1.36)
+        r1ControlPointView.center = CGPoint(x: maxRightX - rightPartWidth * 0.71, y: baseHeight + waveHeight * 0.64)
+        r2ControlPointView.center = CGPoint(x: maxRightX - (rightPartWidth * 0.44), y: baseHeight)
+        r3ControlPointView.center = CGPoint(x: maxRightX, y: baseHeight)
+    }
 
+    private var animating = false {
+        didSet {
+            view.userInteractionEnabled = !animating
+            displayLink.paused = !animating
+        }
+    }
 }
-
