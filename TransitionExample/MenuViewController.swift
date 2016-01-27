@@ -1,15 +1,15 @@
 //
-//  RootViewController.swift
+//  MenuViewController.swift
 //  TransitionExample
 //
-//  Created by 谷田　裕樹 on 2016/01/23.
+//  Created by 谷田　裕樹 on 2016/01/27.
 //  Copyright © 2016年 谷田　裕樹. All rights reserved.
 //
 
 import UIKit
 
 extension UIView {
-    func dg_center(usePresentationLayerIfPossible: Bool) -> CGPoint {
+    func dg_center2(usePresentationLayerIfPossible: Bool) -> CGPoint {
         if usePresentationLayerIfPossible, let presentationLayer = layer.presentationLayer() as? CALayer {
             return presentationLayer.position
         }
@@ -17,23 +17,23 @@ extension UIView {
     }
 }
 
-class RootViewController: UIViewController {
-
+class MenuViewController: UIViewController {
+    
     var pageViewController: UIPageViewController?
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     
     // MARK: -
@@ -66,21 +66,21 @@ class RootViewController: UIViewController {
         
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "panGestureDidMove:"))
         
-//        l3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        l2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        l1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        cControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        r1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        r2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        r3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
-//        
-//        l3ControlPointView.backgroundColor = .redColor()
-//        l2ControlPointView.backgroundColor = .redColor()
-//        l1ControlPointView.backgroundColor = .redColor()
-//        cControlPointView.backgroundColor = .redColor()
-//        r1ControlPointView.backgroundColor = .redColor()
-//        r2ControlPointView.backgroundColor = .redColor()
-//        r3ControlPointView.backgroundColor = .redColor()
+        //        l3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        l2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        l1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        cControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        r1ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        r2ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //        r3ControlPointView.frame = CGRect(x: 0.0, y: 0.0, width: 3.0, height: 3.0)
+        //
+        //        l3ControlPointView.backgroundColor = .redColor()
+        //        l2ControlPointView.backgroundColor = .redColor()
+        //        l1ControlPointView.backgroundColor = .redColor()
+        //        cControlPointView.backgroundColor = .redColor()
+        //        r1ControlPointView.backgroundColor = .redColor()
+        //        r2ControlPointView.backgroundColor = .redColor()
+        //        r3ControlPointView.backgroundColor = .redColor()
         
         view.addSubview(l3ControlPointView)
         view.addSubview(l2ControlPointView)
@@ -130,7 +130,7 @@ class RootViewController: UIViewController {
         }
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {  
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
     
@@ -140,10 +140,10 @@ class RootViewController: UIViewController {
         let bezierPath = UIBezierPath()
         
         bezierPath.moveToPoint(CGPoint(x: 0.0, y: 0.0))
-        bezierPath.addLineToPoint(CGPoint(x: 0.0, y: l3ControlPointView.dg_center(animating).y))
-        bezierPath.addCurveToPoint(l1ControlPointView.dg_center(animating), controlPoint1: l3ControlPointView.dg_center(animating), controlPoint2: l2ControlPointView.dg_center(animating))
-        bezierPath.addCurveToPoint(r1ControlPointView.dg_center(animating), controlPoint1: cControlPointView.dg_center(animating), controlPoint2: r1ControlPointView.dg_center(animating))
-        bezierPath.addCurveToPoint(r3ControlPointView.dg_center(animating), controlPoint1: r1ControlPointView.dg_center(animating), controlPoint2: r2ControlPointView.dg_center(animating))
+        bezierPath.addLineToPoint(CGPoint(x: 0.0, y: l3ControlPointView.dg_center2(animating).y))
+        bezierPath.addCurveToPoint(l1ControlPointView.dg_center2(animating), controlPoint1: l3ControlPointView.dg_center2(animating), controlPoint2: l2ControlPointView.dg_center2(animating))
+        bezierPath.addCurveToPoint(r1ControlPointView.dg_center2(animating), controlPoint1: cControlPointView.dg_center2(animating), controlPoint2: r1ControlPointView.dg_center2(animating))
+        bezierPath.addCurveToPoint(r3ControlPointView.dg_center2(animating), controlPoint1: r1ControlPointView.dg_center2(animating), controlPoint2: r2ControlPointView.dg_center2(animating))
         bezierPath.addLineToPoint(CGPoint(x: width, y: 0.0))
         
         bezierPath.closePath()
@@ -154,7 +154,7 @@ class RootViewController: UIViewController {
     func updateShapeLayer() {
         shapeLayer.path = currentPath()
     }
-
+    
     private func layoutControlPoints(baseHeight baseHeight: CGFloat, waveHeight: CGFloat, locationX: CGFloat) {
         let width = view.bounds.width
         
@@ -172,7 +172,7 @@ class RootViewController: UIViewController {
         r2ControlPointView.center = CGPoint(x: maxRightX - (rightPartWidth * 0.44), y: baseHeight)
         r3ControlPointView.center = CGPoint(x: maxRightX, y: baseHeight)
     }
-
+    
     private var animating = false {
         didSet {
             view.userInteractionEnabled = !animating
@@ -181,7 +181,4 @@ class RootViewController: UIViewController {
     }
     
     
-    @IBAction func optionBtnTouched(sender: AnyObject) {
-        performSegueWithIdentifier("option", sender: self)
-    }
 }
