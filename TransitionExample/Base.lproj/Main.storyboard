@@ -18,15 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTH-ah-Dh2">
-                                <rect key="frame" x="142" y="269" width="37" height="30"/>
-                                <state key="normal" title="Code">
-                                    <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="IN7-Hz-9cT" kind="show" id="nrl-RP-JNN"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1M-xE-Wmm">
                                 <rect key="frame" x="139" y="345" width="42" height="30"/>
                                 <state key="normal" title="About">
@@ -43,8 +34,48 @@
                                     <segue destination="r44-Pa-1FZ" kind="show" identifier="option" id="RLw-4J-3hu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTH-ah-Dh2">
+                                <rect key="frame" x="142" y="269" width="37" height="30"/>
+                                <state key="normal" title="Code">
+                                    <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="IN7-Hz-9cT" kind="show" id="nrl-RP-JNN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XTH-ah-Dh2" firstAttribute="centerX" secondItem="502-Ir-ELC" secondAttribute="centerX" id="DCL-Af-day"/>
+                            <constraint firstItem="XTH-ah-Dh2" firstAttribute="centerY" secondItem="502-Ir-ELC" secondAttribute="centerY" id="Lng-ba-hu6"/>
+                            <constraint firstItem="G1M-xE-Wmm" firstAttribute="centerX" secondItem="L5G-8j-QqH" secondAttribute="centerX" id="RvW-Py-acf"/>
+                            <constraint firstItem="G1M-xE-Wmm" firstAttribute="top" secondItem="L5G-8j-QqH" secondAttribute="bottom" constant="8" symbolic="YES" id="XXb-cn-BiT"/>
+                            <constraint firstItem="XTH-ah-Dh2" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="122" id="aS7-mu-nKb"/>
+                            <constraint firstItem="L5G-8j-QqH" firstAttribute="centerX" secondItem="XTH-ah-Dh2" secondAttribute="centerX" id="aVH-LM-XXs"/>
+                            <constraint firstItem="L5G-8j-QqH" firstAttribute="top" secondItem="XTH-ah-Dh2" secondAttribute="bottom" constant="8" symbolic="YES" id="rgz-JA-qvy"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="DCL-Af-day"/>
+                                <exclude reference="Lng-ba-hu6"/>
+                                <exclude reference="aS7-mu-nKb"/>
+                                <exclude reference="aVH-LM-XXs"/>
+                                <exclude reference="rgz-JA-qvy"/>
+                                <exclude reference="RvW-Py-acf"/>
+                                <exclude reference="XXb-cn-BiT"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="DCL-Af-day"/>
+                                <include reference="Lng-ba-hu6"/>
+                                <include reference="aS7-mu-nKb"/>
+                                <include reference="aVH-LM-XXs"/>
+                                <include reference="rgz-JA-qvy"/>
+                                <include reference="RvW-Py-acf"/>
+                                <include reference="XXb-cn-BiT"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -52,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="-101" y="-243"/>
         </scene>
-        <!--View Controller-->
+        <!--Options View Controller-->
         <scene sceneID="s5v-gK-kq0">
             <objects>
-                <viewController id="r44-Pa-1FZ" sceneMemberID="viewController">
+                <viewController id="r44-Pa-1FZ" customClass="OptionsViewController" customModule="TransitionExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UPn-pu-ld4"/>
                         <viewControllerLayoutGuide type="bottom" id="I58-0L-EC3"/>
@@ -86,7 +117,7 @@
                                                     <rect key="frame" x="243" y="4" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="ZOI-ft-aoU" eventType="valueChanged" id="bui-Cg-b0s"/>
+                                                        <action selector="switchChanged:" destination="ZOI-ft-aoU" eventType="valueChanged" id="SIC-tM-Pvb"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -99,8 +130,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="control" destination="Cfv-FG-7f1" id="X1n-4a-eMz"/>
-                                            <outlet property="nameLabel" destination="piX-eF-dxW" id="Rv8-Ir-c81"/>
+                                            <outlet property="control" destination="Cfv-FG-7f1" id="jmF-UK-92s"/>
+                                            <outlet property="nameLabel" destination="piX-eF-dxW" id="wQc-cB-nsg"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="segment" rowHeight="83" id="BE8-ci-fJ2" customClass="SegmentCell" customModule="TransitionExample" customModuleProvider="target">
@@ -139,8 +170,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="nameLabel" destination="Wc4-gq-9ms" id="IDH-VH-oyu"/>
-                                            <outlet property="segment" destination="61j-wS-2Wv" id="tgw-A1-ZFh"/>
+                                            <outlet property="nameLabel" destination="Wc4-gq-9ms" id="dgm-UM-dHK"/>
+                                            <outlet property="segment" destination="61j-wS-2Wv" id="BHu-FW-kub"/>
+                                            <outlet property="segmentChanged" destination="61j-wS-2Wv" id="7EP-rn-1Ri"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="slider" rowHeight="83" id="TBS-LQ-Gki" customClass="SliderCell" customModule="TransitionExample" customModuleProvider="target">
@@ -178,11 +210,16 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="nameLabel" destination="xaJ-GN-7vN" id="2Jp-kP-o2K"/>
-                                            <outlet property="slider" destination="liJ-1k-MRX" id="JHn-QO-ue1"/>
+                                            <outlet property="nameLabel" destination="xaJ-GN-7vN" id="oqm-r9-QDQ"/>
+                                            <outlet property="slider" destination="liJ-1k-MRX" id="MSv-xh-pZt"/>
+                                            <outlet property="sliderChanged" destination="liJ-1k-MRX" id="2we-ww-geK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="r44-Pa-1FZ" id="Bhc-tV-PhQ"/>
+                                    <outlet property="delegate" destination="r44-Pa-1FZ" id="0oX-hZ-lDA"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -194,10 +231,13 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="FPD-cJ-KPb" id="fOE-eb-iNa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZaQ-C6-ZdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538" y="518"/>
+            <point key="canvasLocation" x="-634.5" y="518"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="CKt-es-iwc">
@@ -235,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYs-yL-ANJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="343" y="518"/>
+            <point key="canvasLocation" x="607.5" y="518"/>
         </scene>
     </scenes>
 </document>
