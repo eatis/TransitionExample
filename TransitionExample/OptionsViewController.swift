@@ -32,7 +32,9 @@ class SliderCell:UITableViewCell {
     @IBOutlet weak var slider: UISlider!
     var onChange:((value:Float)->Void)?
     
-    @IBOutlet weak var sliderChanged: UISlider!
+    @IBAction func sliderChanged(sender: AnyObject) {
+        onChange?(value: sender.value)
+    }
 }
 
 class SegmentCell:UITableViewCell {
@@ -42,7 +44,10 @@ class SegmentCell:UITableViewCell {
     var values:[Any] = []
     var onChange:((value:Any)->Void)?
     
-    @IBOutlet weak var segmentChanged: UISegmentedControl!
+
+    @IBAction func segmentChanged(sender: AnyObject) {
+        onChange?(value: values[sender.selectedSegmentIndex])
+    }
     
 }
 
@@ -66,7 +71,7 @@ class OptionsViewController: UIViewController {
         menu.append(.Switch(name: "Shadow", on:true, onChange: {on in
             true
         }))
-        menu.append(LeftMenuType.Segment(name: "Transform Type", values:[1.0,1.0,1.0], selected:1, onChange: {value in
+        menu.append(LeftMenuType.Segment(name: "Transform Type", values:[0,1,2], selected:1, onChange: {value in
             true
         }))
         menu.append(.Slider(name: "Damping", value:1.0, onChange: {value in

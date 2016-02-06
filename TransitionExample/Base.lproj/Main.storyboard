@@ -18,13 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1M-xE-Wmm">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1M-xE-Wmm">
                                 <rect key="frame" x="139" y="345" width="42" height="30"/>
                                 <state key="normal" title="About">
                                     <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5G-8j-QqH">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5G-8j-QqH">
                                 <rect key="frame" x="133" y="307" width="54" height="30"/>
                                 <state key="normal" title="Options">
                                     <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,7 +34,7 @@
                                     <segue destination="r44-Pa-1FZ" kind="show" identifier="option" id="RLw-4J-3hu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTH-ah-Dh2">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTH-ah-Dh2">
                                 <rect key="frame" x="142" y="269" width="37" height="30"/>
                                 <state key="normal" title="Code">
                                     <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -149,7 +149,7 @@
                                                     </segments>
                                                     <color key="tintColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <action selector="segmentChanged:" destination="BE8-ci-fJ2" eventType="valueChanged" id="FMK-Tb-r9A"/>
+                                                        <action selector="segmentChanged:" destination="BE8-ci-fJ2" eventType="valueChanged" id="bHz-re-BJr"/>
                                                     </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slider" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wc4-gq-9ms">
@@ -172,7 +172,6 @@
                                         <connections>
                                             <outlet property="nameLabel" destination="Wc4-gq-9ms" id="dgm-UM-dHK"/>
                                             <outlet property="segment" destination="61j-wS-2Wv" id="BHu-FW-kub"/>
-                                            <outlet property="segmentChanged" destination="61j-wS-2Wv" id="7EP-rn-1Ri"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="slider" rowHeight="83" id="TBS-LQ-Gki" customClass="SliderCell" customModule="TransitionExample" customModuleProvider="target">
@@ -186,7 +185,7 @@
                                                     <rect key="frame" x="26" y="10" width="268" height="31"/>
                                                     <color key="minimumTrackTintColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <action selector="sliderChanged:" destination="TBS-LQ-Gki" eventType="valueChanged" id="sBp-FD-mGS"/>
+                                                        <action selector="sliderChanged:" destination="TBS-LQ-Gki" eventType="valueChanged" id="x0u-gV-dhB"/>
                                                     </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slider" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaJ-GN-7vN">
@@ -212,7 +211,6 @@
                                         <connections>
                                             <outlet property="nameLabel" destination="xaJ-GN-7vN" id="oqm-r9-QDQ"/>
                                             <outlet property="slider" destination="liJ-1k-MRX" id="MSv-xh-pZt"/>
-                                            <outlet property="sliderChanged" destination="liJ-1k-MRX" id="2we-ww-geK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
