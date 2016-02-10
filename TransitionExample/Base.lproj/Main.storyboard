@@ -143,13 +143,26 @@
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="61j-wS-2Wv">
                                                     <rect key="frame" x="28" y="10" width="264" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="lPj-HM-KXZ"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="First"/>
                                                         <segment title="Second"/>
                                                     </segments>
                                                     <color key="tintColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="lPj-HM-KXZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="lPj-HM-KXZ"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
-                                                        <action selector="segmentChanged:" destination="BE8-ci-fJ2" eventType="valueChanged" id="bHz-re-BJr"/>
+                                                        <action selector="segmentChanged:" destination="BE8-ci-fJ2" eventType="valueChanged" id="FMK-Tb-r9A"/>
                                                     </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slider" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wc4-gq-9ms">
@@ -162,11 +175,22 @@
                                             <constraints>
                                                 <constraint firstItem="61j-wS-2Wv" firstAttribute="leading" secondItem="N5p-Hr-Vp1" secondAttribute="leadingMargin" constant="20" id="4Za-nb-NbK"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Wc4-gq-9ms" secondAttribute="bottom" id="Rqa-oU-sOT"/>
+                                                <constraint firstItem="Wc4-gq-9ms" firstAttribute="top" secondItem="61j-wS-2Wv" secondAttribute="bottom" constant="15" id="Vkk-Zw-4te"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Wc4-gq-9ms" secondAttribute="trailing" constant="8" id="Wpw-Ue-fNm"/>
                                                 <constraint firstItem="61j-wS-2Wv" firstAttribute="top" secondItem="N5p-Hr-Vp1" secondAttribute="topMargin" constant="2" id="abh-Gh-Zyc"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="61j-wS-2Wv" secondAttribute="trailing" constant="20" id="mi4-4g-CKD"/>
                                                 <constraint firstItem="Wc4-gq-9ms" firstAttribute="leading" secondItem="N5p-Hr-Vp1" secondAttribute="leadingMargin" constant="8" id="zyv-YX-fgG"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Vkk-Zw-4te"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="Vkk-Zw-4te"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -183,9 +207,22 @@
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="liJ-1k-MRX">
                                                     <rect key="frame" x="26" y="10" width="268" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1E3-et-uIL"/>
+                                                    </constraints>
                                                     <color key="minimumTrackTintColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="1E3-et-uIL"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="1E3-et-uIL"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
-                                                        <action selector="sliderChanged:" destination="TBS-LQ-Gki" eventType="valueChanged" id="x0u-gV-dhB"/>
+                                                        <action selector="sliderChanged:" destination="TBS-LQ-Gki" eventType="valueChanged" id="sBp-FD-mGS"/>
                                                     </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slider" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaJ-GN-7vN">
@@ -202,10 +239,21 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="liJ-1k-MRX" secondAttribute="trailing" constant="20" id="C5A-iD-LZT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="xaJ-GN-7vN" secondAttribute="bottom" id="G5V-6K-BB5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xaJ-GN-7vN" secondAttribute="trailing" constant="8" id="IUd-78-RHj"/>
+                                                <constraint firstItem="xaJ-GN-7vN" firstAttribute="top" secondItem="liJ-1k-MRX" secondAttribute="bottom" constant="11" id="JRS-v5-48R"/>
                                                 <constraint firstItem="xaJ-GN-7vN" firstAttribute="leading" secondItem="bqo-iW-tRB" secondAttribute="leadingMargin" constant="8" id="XDX-Tv-szr"/>
                                                 <constraint firstItem="liJ-1k-MRX" firstAttribute="leading" secondItem="bqo-iW-tRB" secondAttribute="leadingMargin" constant="20" id="b21-ee-ALo"/>
                                                 <constraint firstItem="liJ-1k-MRX" firstAttribute="top" secondItem="bqo-iW-tRB" secondAttribute="topMargin" constant="2" id="quQ-9d-cTl"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="JRS-v5-48R"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="JRS-v5-48R"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
